@@ -3,7 +3,7 @@
 $dbHost     = 'localhost';
 $dbUsername = 'root';
 $dbPassword = '';
-$dbName     = 'db_ayvu';
+$dbName     = 'Ayvu';
 
 
 mysqli_report(MYSQLI_REPORT_OFF);
