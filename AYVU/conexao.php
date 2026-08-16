@@ -1,5 +1,5 @@
 <?php
-require_once 'conexao.php';
+require_once 'config.php';
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $sobrenome = $_POST['sobrenome'];
     $genero = $_POST['genero'];
     $email = $_POST['email']; 
-    $senha_digitada = $_POST['senha'];
+    $senha = $_POST['senha'];
 
     $senha_protegida = password_hash($senha_digitada, PASSWORD_DEFAULT);
 
@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $stmt = $conexao->prepare($sql);
     
-    $stmt->bind_param("sssss", $nome, $sobrenome, $genero, $email, $senha_protegida);
+    $stmt->bind_param("sssss", $nome, $sobrenome, $genero, $email, $senha);
     
     if ($stmt->execute()) {
         echo "Usuário registrado com sucesso!";
