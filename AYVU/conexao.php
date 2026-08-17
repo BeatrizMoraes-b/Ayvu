@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email']; 
     $senha = $_POST['senha'];
 
-    $senha_protegida = password_hash($senha_digitada, PASSWORD_DEFAULT);
+    $senha = password_hash($senha, PASSWORD_DEFAULT);
 
    
     $sql = "INSERT INTO sua_tabela (nome, sobrenome, genero, email, senha) VALUES (?, ?, ?, ?, ?)";
