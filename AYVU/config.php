@@ -5,23 +5,23 @@ $dbUsername = 'root';
 $dbPassword = 'root';
 $dbName     = 'Ayvu';
 
-
-mysqli_report(MYSQLI_REPORT_OFF);
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 try {
-    
-    $conexao = new mysqli($dbHost, $dbUsername, $dbPassword,$dbName);
 
-   
-    if ($conexao->connect_error) {
-        throw new Exception("Falha na conexão com o banco de dados.");
-    }
+    $conexao = new mysqli(
+        $dbHost,
+        $dbUsername,
+        $dbPassword,
+        $dbName
+    );
 
-   
     $conexao->set_charset("utf8mb4");
 
-} catch (Exception $e) {
+    echo "Conexão realizada com sucesso!";
 
-    die("Ocorreu um erro ao conectar ao sistema. Tente novamente mais tarde.");
+} catch (mysqli_sql_exception $e) {
+
+    die("Erro na conexão: " . $e->getMessage());
 }
 ?>
