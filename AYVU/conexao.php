@@ -5,12 +5,11 @@ require_once 'config.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
    
-    $nome = $_POST['nome']; 
-    $sobrenome = $_POST['sobrenome'];
-    $genero = $_POST['genero'];
-    $email = $_POST['email']; 
-    $senha = $_POST['senha'];
-
+    $nome      = trim($_POST['nome'] ?? ''); 
+    $sobrenome = trim($_POST['sobrenome'] ?? '');
+    $genero    = trim($_POST['genero'] ?? '');
+    $email     = trim($_POST['email'] ?? ''); 
+    $senha     = $_POST['senha'] ?? '';
 
 // Esse bloco serve para a captação de erros de inserção do usuário
 $erros = [];
