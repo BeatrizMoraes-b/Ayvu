@@ -18,7 +18,7 @@ try {
 
     $conexao->set_charset("utf8mb4");
 
-    echo "Conexão realizada com sucesso!";
+  
 
 } catch (mysqli_sql_exception $e) {
 
