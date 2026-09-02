@@ -37,7 +37,7 @@ $erros = [];
     $senha = password_hash($senha, PASSWORD_DEFAULT);
 
    
-    $sql = "INSERT INTO sua_tabela (nome, sobrenome, genero, email, senha) VALUES (?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO usuarios (nome, sobrenome, genero, email, senha) VALUES (?, ?, ?, ?, ?)";
     
 
     $stmt = $conexao->prepare($sql);
