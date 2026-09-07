@@ -20,5 +20,5 @@ if (!isset($_SESSION['usuario_id'])) {
     exit;
 }
 ?>
-<h1>Bem-vindo, <?php echo htmlspecialchars($_SESSION['usuario_nome']); ?>!</h1>
+<h1>Olá, <?php echo htmlspecialchars($_SESSION['usuario_nome']); ?>!</h1>
 <a href="logout.php">Sair</a>
