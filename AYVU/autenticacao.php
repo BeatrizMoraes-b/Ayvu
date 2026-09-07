@@ -24,6 +24,6 @@ if ($usuario = $resultado->fetch_assoc()) {
         exit;
     }
 }
-
+echo "E-mail ou senha incorretos.";
 
 ?>
