@@ -1,6 +1,7 @@
 <?php
 
-$dbHost     = 'localhost';
+$dbHost     = '127.0.0.1';
+$dbPort     = 3306;
 $dbUsername = 'root';
 $dbPassword = 'root';
 $dbName     = 'ayvu';
