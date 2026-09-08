@@ -1,0 +1,36 @@
+{
+  "manifest_version": 3,
+  "name": "AYVU - Acessibilidade Digital",
+  "version": "1.0",
+  "description": "Extensão para conversão de texto/áudio e ajustes visuais de contraste e fonte.",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting"
+  ],
+  "options_page": "options/options.html",
+  "action": {
+    "default_title": "Acessibilidade Digital",
+    "default_icon": {
+      "16": "assets/icons/icon16.png",
+      "48": "assets/icons/icon48.png",
+      "128": "assets/icons/icon128.png"
+    }
+  },
+  "background": {
+    "service_worker": "js/background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["js/content.js"],
+      "css": ["css/content.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": {
+    "16": "assets/icons/icon16.png",
+    "48": "assets/icons/icon48.png",
+    "128": "assets/icons/icon128.png"
+  }
+}
