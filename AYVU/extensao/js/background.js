@@ -21,8 +21,6 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
 
   if (request.acao === 'OBTER_STATUS') {
     sendResponse({ status: 'Service Worker ativo' });
-  } else {
-    sendResponse ({ status: 'Ação não processada pelo background' });
-  }
-
+    return false;
+  } 
 });
