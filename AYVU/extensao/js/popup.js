@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', () => {
   const selectContraste = document.getElementById('contraste');
   const selectTamanhoFonte = document.getElementById('tamanhoFonte');
@@ -6,24 +5,29 @@ document.addEventListener('DOMContentLoaded', () => {
   
   chrome.storage.sync.get(['preferenciasUsuario'], (result) => {
     if (result.preferenciasUsuario) {
-      if (result.preferenciasUsuario.contraste) {
-        selectContraste.value = result.preferenciasUsuario.contraste;
-      }
-      if (result.preferenciasUsuario.tamanhoFonte) {
-        selectTamanhoFonte.value = result.preferenciasUsuario.tamanhoFonte;
-      }
+      selectContraste.value = result.preferenciasUsuario.contraste || 'nenhum';
+      selectTamanhoFonte.value = result.preferenciasUsuario.tamanhoFonte || 'normal';
     }
   });
 
-  
-  document.getElementById('btnSalvar').addEventListener('click', () => {
+  function salvar() {
     const novasPrefs = {
       contraste: selectContraste.value,
       tamanhoFonte: selectTamanhoFonte.value
     };
+    chrome.storage.sync.set({ preferenciasUsuario: novasPrefs });
+  }
 
-    chrome.storage.sync.set({ preferenciasUsuario: novasPrefs }, () => {
-      window.close(); 
+ 
+  selectContraste.addEventListener('change', salvar);
+  selectTamanhoFonte.addEventListener('change', salvar);
+
+ 
+  const btnSalvar = document.getElementById('btnSalvar');
+  if (btnSalvar) {
+    btnSalvar.addEventListener('click', () => {
+      salvar();
+      window.close();
     });
-  });
+  }
 });
