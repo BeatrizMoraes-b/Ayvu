@@ -59,3 +59,14 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     });
   }
 });
+chrome.storage.onChanged.addListener((changes, areaName) => {
+  if (areaName === 'sync' && changes.preferenciasUsuario) {
+    aplicarPreferencias(changes.preferenciasUsuario.newValue || {});
+  }
+});
+
+chrome.storage.sync.get(['preferenciasUsuario'], (result) => {
+  if (result.preferenciasUsuario) {
+    aplicarPreferencias(result.preferenciasUsuario);
+  }
+});
