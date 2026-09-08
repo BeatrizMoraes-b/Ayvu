@@ -21,56 +21,41 @@ function aplicarFiltro(tipoFiltro) {
   }
 }
 
-function aplicarTamanhoFonte(tamanho) {
-  let styleTag = document.getElementById('acessibilidade-fonte');
-  
-  if (!styleTag) {
-    styleTag = document.createElement('style');
-    styleTag.id = 'acessibilidade-fonte';
-    document.head.appendChild(styleTag);
-  }
 
-  switch (tamanho) {
-    case 'grande':
-      styleTag.textContent = '* { font-size: 120% !important; }';
-      break;
-    case 'muito-grande':
-      styleTag.textContent = '* { font-size: 140% !important; }';
-      break;
-    default:
-      styleTag.textContent = '';
-      break;
-  }
-}
 
-function falarTexto(texto) {
-  if (!('speechSynthesis' in window)) {
-    console.warn('[Acessibilidade] Web Speech API não é suportada neste navegador.');
-    return;
-  }
+function falarTexto(texto, velocidade = 1.0) {
+  if (!('speechSynthesis' in window)) return;
 
 
   window.speechSynthesis.cancel();
-
   if (!texto || texto.trim() === '') return;
 
   const utterance = new SpeechSynthesisUtterance(texto);
   utterance.lang = 'pt-BR';
-  utterance.rate = 1.0;
+  utterance.rate = velocidade;
 
   window.speechSynthesis.speak(utterance);
 }
 
-chrome.storage.sync.get(['preferenciasUsuario'], (result) => {
-  if (result.preferenciasUsuario) {
-    aplicarPreferencias(result.preferenciasUsuario);
+function aplicarPreferencias(prefs) {
+  if (!prefs) return;
+  aplicarFiltro(prefs.contraste);
+}
+
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  if (request.acao === 'ATUALIZAR_PREFERENCIAS') {
+    aplicarPreferencias(request.preferencias);
+    sendResponse({ status: 'OK'});
   }
-});
 
 
-chrome.storage.onChanged.addListener((changes, areaName) => {
-  if (areaName === 'sync' && changes.preferenciasUsuario) {
-    const novasPrefs = changes.preferenciasUsuario.newValue || {};
-    aplicarPreferencias(novasPrefs);
+  if (request.acao === 'LER_TEXTO_SELECIONADO') {
+    const textoSelecionado = window.getSelection().toString();
+    
+   
+    chrome.storage.sync.get(['preferenciasUsuario'], (result) => {
+      const vel = result.preferenciasUsuario?.velocidadeFala || 1.0;
+      falarTexto(textoSelecionado || request.texto, vel);
+    });
   }
 });

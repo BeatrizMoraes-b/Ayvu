@@ -1,18 +1,17 @@
-
 document.addEventListener('DOMContentLoaded', carregarPreferencias);
 
 const elemVelocidade = document.getElementById('velocidade');
 const elemValorVelocidade = document.getElementById('valor-velocidade');
 const elemVozGenero = document.getElementById('vozGenero');
 const elemContraste = document.getElementById('contraste');
-const elemTamanhoFonte = document.getElementById('tamanhoFonte');
 const elemStatus = document.getElementById('status');
 
 
-elemVelocidade.addEventListener('input', () => {
-  elemValorVelocidade.textContent = `${elemVelocidade.value}x`;
-});
-
+if (elemVelocidade && elemValorVelocidade) {
+  elemVelocidade.addEventListener('input', () => {
+    elemValorVelocidade.textContent = `${elemVelocidade.value}x`;
+  });
+}
 
 function carregarPreferencias() {
   chrome.storage.sync.get(['preferenciasUsuario'], (result) => {
@@ -20,35 +19,53 @@ function carregarPreferencias() {
 
     const prefs = result.preferenciasUsuario;
 
-   
-    if (prefs.velocidadeFala) {
+    if (prefs.velocidadeFala && elemVelocidade && elemValorVelocidade) {
       elemVelocidade.value = prefs.velocidadeFala;
       elemValorVelocidade.textContent = `${prefs.velocidadeFala}x`;
     }
-    if (prefs.vozGenero) elemVozGenero.value = prefs.vozGenero;
-    if (prefs.contraste) elemContraste.value = prefs.contraste;
-    if (prefs.tamanhoFonte) elemTamanhoFonte.value = prefs.tamanhoFonte;
+    if (prefs.vozGenero && elemVozGenero) {
+      elemVozGenero.value = prefs.vozGenero;
+    }
+    if (prefs.contraste && elemContraste) {
+      elemContraste.value = prefs.contraste;
+    }
   });
 }
-
 
 function salvarPreferencias() {
   const configuracoes = {
-    velocidadeFala: parseFloat(elemVelocidade.value),
-    vozGenero: elemVozGenero.value,
-    contraste: elemContraste.value,
-    tamanhoFonte: elemTamanhoFonte.value
+    velocidadeFala: elemVelocidade ? parseFloat(elemVelocidade.value) : 1.0,
+    vozGenero: elemVozGenero ? elemVozGenero.value : 'feminino',
+    contraste: elemContraste ? elemContraste.value : 'nenhum'
   };
 
   chrome.storage.sync.set({ preferenciasUsuario: configuracoes }, () => {
-   
-    elemStatus.textContent = 'Preferências salvas com sucesso!';
-    elemStatus.style.color = 'green';
+    if (elemStatus) {
+      elemStatus.textContent = 'Preferências salvas com sucesso!';
+      elemStatus.style.color = 'green';
 
-    setTimeout(() => {
-      elemStatus.textContent = '';
-    }, 3000);
+      setTimeout(() => {
+        elemStatus.textContent = '';
+      }, 3000);
+    }
+
+    
+    chrome.tabs.query({}, (tabs) => {
+      tabs.forEach((tab) => {
+        if (tab.id) {
+          chrome.tabs.sendMessage(tab.id, {
+            acao: 'ATUALIZAR_PREFERENCIAS',
+            preferencias: configuracoes
+          }).catch(() => {
+          
+          });
+        }
+      });
+    });
   });
 }
 
-document.getElementById('btnSalvar').addEventListener('click', salvarPreferencias);
+const btnSalvar = document.getElementById('btnSalvar');
+if (btnSalvar) {
+  btnSalvar.addEventListener('click', salvarPreferencias);
+}
