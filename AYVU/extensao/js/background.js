@@ -22,5 +22,5 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.acao === 'OBTER_STATUS') {
     sendResponse({ status: 'Service Worker ativo' });
   }
-  return true; 
+
 });
