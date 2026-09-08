@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preferências</title>
+</head>
+<body>
+   <main class="container">
+    <h1>Preferências de Navegação</h1>
+    
+    <form id="form-preferencias">
+  
+      <fieldset>
+        <legend> Preferências visuais e de áudio</legend>
+        
+        <label for="velocidade">Velocidade da Fala:</label>
+        <input type="range" id="velocidade" min="0.5" max="2" step="0.1" value="1.0">
+        <span id="valor-velocidade">1.0x</span>
+
+        <br><br>
+
+        <label for="vozGenero">Preferência de Voz:</label>
+        <select id="vozGenero">
+          <option value="padrao">Padrão do Sistema</option>
+          <option value="feminino">Feminina</option>
+          <option value="masculino">Masculina</option>
+        </select>
+      </fieldset>
+
+  
+      <fieldset>
+        <legend>Ajustes Visuais</legend>
+
+        <label for="contraste">Contraste:</label>
+        <select id="contraste">
+          <option value="normal">Normal</option>
+          <option value="alto-contraste">Alto Contraste</option>
+          <option value="protanopia">Protanopia</option>
+          <option value="deuteranopia">Deuteranopia</option>
+          <option value="tritanopia">Tritanopia</option>
+        </select>
+
+        <br><br>
+
+        <label for="tamanhoFonte">Opções de tamanho de fonte:</label>
+        <select id="tamanhoFonte">
+          <option value="normal">Padrão do Site</option>
+          <option value="18px">Grande (18px)</option>
+          <option value="22px">Muito Grande (22px)</option>
+        </select>
+      </fieldset>
+
+      <br>
+      <button type="button" id="btnSalvar">Salvar Preferências</button>
+      <p id="status" aria-live="polite"></p>
+    </form>
+  </main>
+
+  <script src="../js/options.js"></script> 
+
+</body>
+</html>
