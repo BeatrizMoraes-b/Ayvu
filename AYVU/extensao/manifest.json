@@ -10,6 +10,7 @@
   ],
   "options_page": "options/options.html",
   "action": {
+    "default_popup": "popup.html",
     "default_title": "Acessibilidade Digital",
     "default_icon": {
      

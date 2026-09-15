@@ -1,4 +1,4 @@
-
+// função para aplicar o filtro de daltonismo
 function aplicarFiltro(tipoFiltro) {
   const html = document.documentElement;
 
@@ -22,7 +22,7 @@ function aplicarFiltro(tipoFiltro) {
 }
 
 
-
+//função para alinhar o filtro com as preferências 
 function falarTexto(texto, velocidade = 1.0) {
   if (!('speechSynthesis' in window)) return;
 
@@ -36,7 +36,7 @@ function falarTexto(texto, velocidade = 1.0) {
 
   window.speechSynthesis.speak(utterance);
 }
-
+//aqui ela aplica as preferências 
 function aplicarPreferencias(prefs) {
   if (!prefs) return;
   aplicarFiltro(prefs.contraste);
@@ -68,5 +68,56 @@ chrome.storage.onChanged.addListener((changes, areaName) => {
 chrome.storage.sync.get(['preferenciasUsuario'], (result) => {
   if (result.preferenciasUsuario) {
     aplicarPreferencias(result.preferenciasUsuario);
+  }
+});
+
+function selecionarERealcarTexto() {
+  const elementoAlvo = 
+      document.querySelector('article') || 
+      document.querySelector('main') || 
+      document.querySelector('p');
+
+  if (!elementoAlvo) {
+    console.warn('[Acessibilidade] Nenhum bloco de texto encontrado.');
+    return '';
+  }
+
+ 
+  elementoAlvo.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+  const range = document.createRange();
+  range.selectNodeContents(elementoAlvo);
+
+  const selecao = window.getSelection();
+  selecao.removeAllRanges();
+  selecao.addRange(range);
+
+  return elementoAlvo.innerText.trim();
+}
+
+
+chrome.runtime.onMessage.addListener((request) => {
+  if (request.acao === 'ATUALIZAR_PREFERENCIAS') {
+    aplicarPreferencias(request.preferencias);
+  }
+
+  if (request.acao === 'LER_TEXTO_AUTOMATICO') {
+    
+    const textoParaLer = selecionarERealcarTexto();
+
+   
+    if (textoParaLer) {
+      chrome.storage.sync.get(['preferenciasUsuario'], (result) => {
+        const velocidade = result.preferenciasUsuario?.velocidadeFala || 1.0;
+        falarTexto(textoParaLer, velocidade);
+      });
+    }
+  }
+
+  if (request.acao === 'PARAR_LEITURA') {
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      window.getSelection().removeAllRanges();
+    }
   }
 });
