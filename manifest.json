@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "AYVU - Acessibilidade Digital",
+  "version": "1.0",
+  "description": "Extensão para conversão de texto/áudio e ajustes visuais.",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting",
+    "tabCapture",
+    "offscreen"
+  ],
+  "options_page": "options/options.html",
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Acessibilidade Digital"
+  },
+  "background": {
+    "service_worker": "js/background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://*/*", "http://*/*"],
+      "js": ["js/content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
