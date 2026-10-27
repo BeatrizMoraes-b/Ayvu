@@ -138,8 +138,9 @@ chrome.runtime.onMessage.addListener((request) => {
    
     if (textoParaLer) {
       chrome.storage.sync.get(['preferenciasUsuario'], (result) => {
-        const velocidade = result.preferenciasUsuario?.velocidadeFala || 1.0;
-        falarTexto(textoParaLer, velocidade);
+        const prefs = result.preferenciasUsuario || {};
+        const velocidade = prefs.velocidadeFala || 1.0;
+        falarTexto(textoParaLer, velocidade, prefs.vozGenero);
       });
     }
   }
