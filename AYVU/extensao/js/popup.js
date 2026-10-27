@@ -2,6 +2,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const btnLerTexto = document.getElementById('btnLerTexto');
   const btnPararLeitura = document.getElementById('btnPararLeitura');
+  const btnAbrirOpcoes = document.getElementById('btnAbrirOpcoes');
 
   if (btnLerTexto) {
     btnLerTexto.addEventListener('click', async () => {
