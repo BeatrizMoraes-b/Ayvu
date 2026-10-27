@@ -22,10 +22,10 @@ function aplicarFiltro(tipoFiltro) {
 }
 
 
-//função para alinhar o filtro com as preferências 
-function falarTexto(texto, velocidade = 1.0) {
-  if (!('speechSynthesis' in window)) return;
+//função para alinhar o filtro com as preferências
 
+function falarTexto(texto, velocidade = 1.0, vozGenero = 'padrao') {
+  if (!('speechSynthesis' in window)) return;
 
   window.speechSynthesis.cancel();
   if (!texto || texto.trim() === '') return;
@@ -34,8 +34,38 @@ function falarTexto(texto, velocidade = 1.0) {
   utterance.lang = 'pt-BR';
   utterance.rate = velocidade;
 
-  window.speechSynthesis.speak(utterance);
+  const selecionarVoz = () => {
+    const vozes = window.speechSynthesis.getVoices();
+
+    if (vozGenero !== 'padrao') {
+      const vozSelecionada = vozes.find(voz =>
+        voz.lang.toLowerCase().startsWith('pt') &&
+        (
+          vozGenero === 'feminino'
+            ? /female|feminina|francisca|maria/i.test(voz.name)
+            : /male|masculina/i.test(voz.name)
+        )
+      );
+
+      if (vozSelecionada) {
+        utterance.voice = vozSelecionada;
+      }
+    }
+
+    window.speechSynthesis.speak(utterance);
+  };
+
+  if (window.speechSynthesis.getVoices().length > 0) {
+    selecionarVoz();
+  } else {
+    window.speechSynthesis.addEventListener(
+      'voiceschanged',
+      selecionarVoz,
+      { once: true }
+    );
+  }
 }
+
 //aqui ela aplica as preferências 
 function aplicarPreferencias(prefs) {
   if (!prefs) return;
