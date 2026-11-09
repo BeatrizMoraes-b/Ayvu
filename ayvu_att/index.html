@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ayvu - Sua experiência digital como nunca vista antes</title>
+  <meta name="description" content="Ayvu é a plataforma moderna que transforma sua experiência digital com acessibilidade completa.">
+  <link rel="icon" type="image/png" href="assets/logo.png">
+  
+  <!-- Estilos -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Script do tema de alto contraste -->
+  <script src="javascript.js" defer></script>
+</head>
+<body>
+
+  <!-- Barra de Navegação -->
+  <header class="site-header">
+    <nav class="navbar" aria-label="Navegação Principal">
+      <a href="#" class="brand-link" aria-label="Página inicial Ayvu">
+        <img src="assets/logo.png" alt="Ayvu Logo" class="brand-logo">
+      </a>
+
+      <!-- Botão Hambúrguer para Mobile -->
+      <button class="mobile-toggle" aria-label="Abrir menu de navegação" id="mobile-toggle">
+        &#9776;
+      </button>
+
+      <!-- Links do Menu -->
+      <ul class="nav-links" id="nav-links">
+        <li class="nav-item active"><a href="#inicio">Início</a></li>
+        <li class="nav-item"><a href="#sobre">Sobre nós</a></li>
+        <li class="nav-item"><a href="#download">Download</a></li>
+        <button id="toggle-tema" type="button" aria-pressed="false">Alto contraste</button>
+        </li>
+
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Seção Principal / Hero -->
+  <main class="hero-section" id="inicio">
+    <div class="container">
+      <div class="hero-grid">
+        
+        <!-- Conteúdo Textual -->
+        <div class="hero-content">
+          <span class="hero-badge">Acessibilidade Digital</span>
+          <h1 class="hero-title">Bem Vindo<br>Ao Ayvu</h1>
+          <p class="hero-subtitle">Sua experiência digital como nunca vista antes</p>
+          <a href="#sobre" class="cta-button">Saiba mais</a>
+        </div>
+
+        <!-- Ilustração do Mascote -->
+        <div class="hero-visual">
+          <div class="mascot-wrapper">
+            <img 
+              src="assets/marcha_ayvu.png" 
+              alt="Mascote do Ayvu usando computador com recursos de acessibilidade: áudio, lupa para fontes, Libras e closed captions" 
+              class="mascot-image"
+            >
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Seção Sobre (fundo azul) -->
+  <main class="hero-section sobre" id="sobre">
+    <div class="container">
+      <div class="hero-grid sobre-grid">
+
+        <!-- Título -->
+        <h1 class="hero-title">Sobre nós</h1>
+
+        <!-- Imagem (substitua pelo arquivo desejado) -->
+        <div class="hero-visual">
+          <div class="mascot-wrapper">
+            <img
+              src="assets/mascot_tablet.png"
+              alt="Mascote do Ayvu"
+              class="mascot-image"
+            >
+          </div>
+        </div>
+
+        <!-- Texto para inserção -->
+        <p class="hero-subtitle">Somos uma equipe independente formada por 8 integrantes, unidos pelo propósito de tornar o ambiente digital mais acessível e inclusivo. Ao identificar as dificuldades enfrentadas por pessoas com deficiências auditivas, visuais e de fala durante a navegação na Internet.</p>
+
+      </div>
+    </div>
+  </main>
+
+   <!-- Seção de Download / Hero -->
+  <main class="hero-section" id="download">
+    <div class="container">
+      <div class="hero-grid">
+        
+        <!-- Conteúdo Textual -->
+        <div class="hero-content">
+          <h1 class="hero-title">Faça o Download</h1>
+          <p class="hero-subtitle">Desenvolvemos este projeto para oferecer uma experiência digital mais acolhedora e acessível. Trabalhamos para proporcionar confiança, praticidade e autonomia aos usuários, garantindo que todos possam utilizar a web com mais tranquilidade e segurança.</p>
+          <a href="#sobre" class="cta-button">Saiba mais</a>
+        </div>
+
+        <!-- Ilustração do Mascote -->
+        <div class="hero-visual">
+          <div class="mascot-wrapper">
+            <img 
+              src="assets/mascot_swing.png" 
+              alt="Mascote do Ayvu usando computador com recursos de acessibilidade: áudio, lupa para fontes, Libras e closed captions" 
+              class="mascot-image"
+            >
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+ 
+  <!-- Rodapé -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-copy">&copy; 2026 Ayvu. Todos os direitos reservados.</p>
+      <ul class="footer-links">
+        <li><a href="#termos">Termos de Uso</a></li>
+        <li><a href="#privacidade">Privacidade</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <!-- Script simples para toggle do menu mobile -->
+  <script>
+    const mobileToggle = document.getElementById('mobile-toggle');
+    const navLinks = document.getElementById('nav-links');
+
+    if (mobileToggle && navLinks) {
+      mobileToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('show');
+      });
+    }
+  </script>
+
+</body>
+</html>
